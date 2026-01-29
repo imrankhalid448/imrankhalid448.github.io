@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Object Detection Flask App - Imran Khalid</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600&family=Poppins:wght@300;500;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-color: #050510;
+            --bg-secondary: #0a0a1a;
+            --text-primary: #e0e0e0;
+            --text-secondary: #a0a0b0;
+            --accent-primary: #00f3ff;
+            --accent-secondary: #ffd700;
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.05);
+            --font-heading: 'Poppins', sans-serif;
+            --font-body: 'Inter', sans-serif;
+            --card-radius: 12px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 1.5rem 3rem;
+            background: rgba(5, 5, 16, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--glass-border);
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .logo a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .back-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .back-link:hover {
+            color: var(--accent-primary);
+            transform: translateX(-5px);
+        }
+
+        /* Project Hero */
+        .project-hero {
+            padding: 10rem 0 4rem;
+            background: linear-gradient(135deg, var(--bg-color) 0%, var(--bg-secondary) 100%);
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .project-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .domain-badge {
+            display: inline-block;
+            padding: 0.6rem 1.5rem;
+            background: var(--glass-bg);
+            border: 1px solid var(--accent-primary);
+            border-radius: 30px;
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent-primary);
+        }
+
+        .project-title {
+            font-size: 3.5rem;
+            margin: 1rem 0;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-family: var(--font-heading);
+        }
+
+        .project-subtitle {
+            font-size: 1.4rem;
+            color: var(--text-secondary);
+            max-width: 800px;
+            margin: 0 auto 2rem;
+        }
+
+        .project-meta {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .project-meta span {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .project-meta i {
+            color: var(--accent-primary);
+        }
+
+        .project-links {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            padding: 0.8rem 2rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-primary), #0088ff);
+            color: #fff;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 243, 255, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 1px solid var(--accent-primary);
+            color: var(--accent-primary);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(0, 243, 255, 0.1);
+            transform: translateY(-3px);
+        }
+
+        /* Project Content */
+        .project-content {
+            padding: 4rem 0;
+        }
+
+        .content-section {
+            margin-bottom: 4rem;
+        }
+
+        .content-section h2 {
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent-primary);
+            font-family: var(--font-heading);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .content-section h2 i {
+            font-size: 1.8rem;
+        }
+
+        .content-section p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+
+        .highlight-box {
+            background: var(--glass-bg);
+            border-left: 4px solid var(--accent-primary);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+        }
+
+        /* Architecture Grid */
+        .architecture-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .arch-component {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--card-radius);
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .arch-component:hover {
+            border-color: var(--accent-primary);
+            transform: translateY(-5px);
+        }
+
+        .arch-component h3 {
+            color: var(--accent-primary);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .arch-component p {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }
+
+        /* Methodology Steps */
+        .methodology-steps {
+            list-style: none;
+            counter-reset: step-counter;
+        }
+
+        .methodology-steps li {
+            counter-increment: step-counter;
+            position: relative;
+            padding-left: 4rem;
+            margin-bottom: 2rem;
+            font-size: 1.05rem;
+        }
+
+        .methodology-steps li::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 2.5rem;
+            height: 2.5rem;
+            background: linear-gradient(135deg, var(--accent-primary), #0088ff);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        /* Metrics Grid */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .metric-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--card-radius);
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .metric-card:hover {
+            border-color: var(--accent-primary);
+            transform: scale(1.05);
+        }
+
+        .metric-value {
+            display: block;
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--accent-primary);
+            margin-bottom: 0.5rem;
+            font-family: var(--font-heading);
+        }
+
+        .metric-label {
+            display: block;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .metric-description {
+            display: block;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Impact List */
+        .impact-list {
+            list-style: none;
+        }
+
+        .impact-list li {
+            padding-left: 2rem;
+            margin-bottom: 1rem;
+            position: relative;
+            font-size: 1.05rem;
+        }
+
+        .impact-list li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--accent-primary);
+            font-weight: 700;
+            font-size: 1.3rem;
+        }
+
+        /* Code Blocks */
+        .code-section {
+            margin: 2rem 0;
+        }
+
+        .code-section h3 {
+            color: var(--accent-secondary);
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        pre {
+            background: #0a0a1a;
+            border: 1px solid var(--glass-border);
+            border-radius: var(--card-radius);
+            padding: 1.5rem;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+
+        code {
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: #e0e0e0;
+        }
+
+        /* Tech Stack */
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .tech-badge {
+            padding: 0.6rem 1.2rem;
+            background: var(--glass-bg);
+            border: 1px solid var(--accent-primary);
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: var(--accent-primary);
+            transition: all 0.3s ease;
+        }
+
+        .tech-badge:hover {
+            background: rgba(0, 243, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        /* Challenges */
+        .challenges-grid {
+            display: grid;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .challenge-item {
+            background: var(--glass-bg);
+            border-left: 4px solid var(--accent-secondary);
+            padding: 1.5rem;
+            border-radius: 8px;
+        }
+
+        .challenge-item h4 {
+            color: var(--accent-secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .challenge-item .solution {
+            color: var(--text-secondary);
+            font-style: italic;
+            margin-top: 0.5rem;
+        }
+
+        .challenge-item .solution::before {
+            content: "→ Solution: ";
+            color: var(--accent-primary);
+            font-weight: 600;
+        }
+
+        /* Image Gallery */
+        .image-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: var(--card-radius);
+            overflow: hidden;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            transition: all 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            border-color: var(--accent-primary);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 243, 255, 0.2);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            color: var(--text-secondary);
+            border-top: 1px solid var(--glass-border);
+            margin-top: 4rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .project-title {
+                font-size: 2.5rem;
+            }
+
+            .project-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .navbar {
+                padding: 1rem 1.5rem;
+            }
+
+            .project-hero {
+                padding: 8rem 0 3rem;
+            }
+
+            .metrics-grid,
+            .architecture-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="logo"><a href="../../index.html">IK.</a></div>
+        <a href="../../index.html#projects" class="back-link">
+            <i class="fas fa-arrow-left"></i> Back to Projects
+        </a>
+    </nav>
+
+    <!-- Project Hero -->
+    <section class="project-hero">
+        <div class="container">
+            <div class="project-header">
+                <span class="domain-badge">👁️ Computer Vision</span>
+                <h1 class="project-title">Object Detection Flask App</h1>
+                <p class="project-subtitle">Web-Based YOLO Detection Interface</p>
+
+                <div class="project-meta">
+                    <span><i class="fas fa-calendar"></i> 2 weeks</span>
+                    <span><i class="fas fa-user"></i> Solo Project</span>
+                    <span><i class="fas fa-check-circle"></i> Completed</span>
+                </div>
+
+                <div class="project-links">
+                    <span class="btn btn-secondary" style="opacity:0.6; cursor:not-allowed;">Private / Under Development</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Project Content -->
+    <main class="project-content">
+        <div class="container">
+
+            <!-- Overview -->
+            <section class="content-section">
+                <h2><i class="fas fa-info-circle"></i> Overview</h2>
+                <p>Drag-and-drop web interface for running YOLO object detection on user images with instant visualization.</p>
+            </section>
+
+            <!-- Problem Statement -->
+            <section class="content-section">
+                <h2><i class="fas fa-exclamation-triangle"></i> The Problem</h2>
+                <p>Showcasing deep learning models to non-technical users requires simple, intuitive interfaces.</p>
+            </section>
+
+            <!-- Solution -->
+            <section class="content-section">
+                <h2><i class="fas fa-lightbulb"></i> The Solution</h2>
+                <p>Built Flask web app with drag-and-drop upload, real-time YOLO inference, and annotated result visualization.</p>
+            </section>
+
+            
+
+            
+
+            
+
+            <!-- Results & Impact -->
+            <section class="content-section">
+                <h2><i class="fas fa-chart-line"></i> Results & Impact</h2>
+
+                
+      <div class="metrics-grid">
+        
+          <div class="metric-card">
+            <span class="metric-value">0.5s</span>
+            <span class="metric-label">Inference Time</span>
+            <span class="metric-description">Per image on CPU</span>
+          </div>
+        
+          <div class="metric-card">
+            <span class="metric-value">80</span>
+            <span class="metric-label">Supported Classes</span>
+            <span class="metric-description">COCO dataset</span>
+          </div>
+        
+          <div class="metric-card">
+            <span class="metric-value">10MB</span>
+            <span class="metric-label">Max Image Size</span>
+            <span class="metric-description">Upload limit</span>
+          </div>
+        
+      </div>
+    
+
+                <h3 style="margin-top: 3rem; color: var(--accent-secondary);">Key Impact</h3>
+                <ul class="impact-list">
+                    <li>Simplified model demonstration</li><li>Used for client presentations</li><li>Educational tool for ML workshops</li>
+                </ul>
+            </section>
+
+            
+
+            
+
+            <!-- Technologies Used -->
+            <section class="content-section">
+                <h2><i class="fas fa-tools"></i> Technologies Used</h2>
+                <div class="tech-stack">
+                    <span class="tech-badge">Python</span><span class="tech-badge">Flask</span><span class="tech-badge">YOLOv5</span><span class="tech-badge">HTML/CSS</span><span class="tech-badge">JavaScript</span>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Imran Khalid. Built with <i class="fas fa-bolt"></i> Speed & Precision.</p>
+    </footer>
+</body>
+
+</html>

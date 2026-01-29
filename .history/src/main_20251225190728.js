@@ -1,5 +1,5 @@
 import './style.css'
-import { projects, domains } from './project-data.js';
+import { projects } from './project-data.js';
 
 // --- Intro Animation Controller ---
 const introOverlay = document.getElementById('intro-overlay');
@@ -222,62 +222,31 @@ window.addEventListener('mousemove', (e) => {
   target.y = posY;
 });
 
-// --- Dynamic Projects Rendering with Domain Filtering ---
+// --- Dynamic Projects Rendering ---
 const projectGrid = document.querySelector('.project-grid');
-let currentDomain = 'all';
 
-function renderProjects(filterDomain = 'all') {
-  currentDomain = filterDomain;
-
-  // Filter projects by domain
-  const filteredProjects = filterDomain === 'all'
-    ? projects
-    : projects.filter(p => p.domain === filterDomain);
-
-  // Render project cards
-  projectGrid.innerHTML = filteredProjects.map(project => {
-    const domainInfo = domains[project.domain];
-    const placeholderImage = `https://via.placeholder.com/400x250/0a0a1a/00f3ff?text=${encodeURIComponent(project.title)}`;
-
-    return `
-      <a href="./projects/${project.id}/index.html" class="project-card-enhanced fade-on-scroll" data-domain="${project.domain}">
-        <div class="project-thumbnail">
-          <img src="${project.thumbnail || placeholderImage}" alt="${project.title}" loading="lazy">
-          <span class="domain-badge">${domainInfo.icon} ${domainInfo.label}</span>
-        </div>
-        <div class="project-info">
-          <h3>${project.title}</h3>
-          <p class="project-overview">${project.overview}</p>
-          <div class="project-footer">
-            <div class="tech-preview">
-              ${project.tech.slice(0, 3).map(t => `<span>${t}</span>`).join('')}
+function renderProjects() {
+  projectGrid.innerHTML = projects.map(project => `
+        <div class="project-card fade-on-scroll" data-id="${project.id}">
+            <div class="card-inner">
+                <p class="project-type">${project.type}</p>
+                <h3>${project.title}</h3>
+                <div class="mini-tags">
+                   ${project.tech.slice(0, 3).map(t => `<span>${t}</span>`).join('')}
+                </div>
             </div>
-            <span class="view-project">View Project →</span>
-          </div>
         </div>
-      </a>
-    `;
-  }).join('');
+    `).join('');
 
-  // Re-observe new elements for scroll animations
-  document.querySelectorAll('.project-card-enhanced').forEach(el => observer.observe(el));
-}
+  // Re-observe new elements
+  document.querySelectorAll('.project-card').forEach(el => observer.observe(el));
 
-// Domain filter functionality
-function initDomainFilters() {
-  const filterButtons = document.querySelectorAll('.filter-btn');
-
-  filterButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      // Remove active class from all buttons
-      filterButtons.forEach(b => b.classList.remove('active'));
-
-      // Add active class to clicked button
-      btn.classList.add('active');
-
-      // Get domain and render filtered projects
-      const domain = btn.getAttribute('data-domain');
-      renderProjects(domain);
+  // Add Click Listeners
+  document.querySelectorAll('.project-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const pid = card.getAttribute('data-id');
+      const project = projects.find(p => p.id === pid);
+      openModal(project);
     });
   });
 }
@@ -355,12 +324,7 @@ window.addEventListener('resize', () => {
 resize();
 initParticles();
 animate();
-
-// Initialize projects section
-if (projectGrid) {
-  renderProjects();
-  initDomainFilters();
-}
+renderProjects();
 
 // Mobile Nav
 const hamburger = document.querySelector('.hamburger');

@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GenFedRepKG - Imran Khalid</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600&family=Poppins:wght@300;500;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-color: #050510;
+            --bg-secondary: #0a0a1a;
+            --text-primary: #e0e0e0;
+            --text-secondary: #a0a0b0;
+            --accent-primary: #00f3ff;
+            --accent-secondary: #ffd700;
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.05);
+            --font-heading: 'Poppins', sans-serif;
+            --font-body: 'Inter', sans-serif;
+            --card-radius: 12px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 1.5rem 3rem;
+            background: rgba(5, 5, 16, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--glass-border);
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .logo a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .back-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .back-link:hover {
+            color: var(--accent-primary);
+            transform: translateX(-5px);
+        }
+
+        /* Project Hero */
+        .project-hero {
+            padding: 10rem 0 4rem;
+            background: linear-gradient(135deg, var(--bg-color) 0%, var(--bg-secondary) 100%);
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .project-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .domain-badge {
+            display: inline-block;
+            padding: 0.6rem 1.5rem;
+            background: var(--glass-bg);
+            border: 1px solid var(--accent-primary);
+            border-radius: 30px;
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent-primary);
+        }
+
+        .project-title {
+            font-size: 3.5rem;
+            margin: 1rem 0;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-family: var(--font-heading);
+        }
+
+        .project-subtitle {
+            font-size: 1.4rem;
+            color: var(--text-secondary);
+            max-width: 800px;
+            margin: 0 auto 2rem;
+        }
+
+        .project-meta {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .project-meta span {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .project-meta i {
+            color: var(--accent-primary);
+        }
+
+        .project-links {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            padding: 0.8rem 2rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-primary), #0088ff);
+            color: #fff;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 243, 255, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 1px solid var(--accent-primary);
+            color: var(--accent-primary);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(0, 243, 255, 0.1);
+            transform: translateY(-3px);
+        }
+
+        /* Project Content */
+        .project-content {
+            padding: 4rem 0;
+        }
+
+        .content-section {
+            margin-bottom: 4rem;
+        }
+
+        .content-section h2 {
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent-primary);
+            font-family: var(--font-heading);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .content-section h2 i {
+            font-size: 1.8rem;
+        }
+
+        .content-section p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+
+        .highlight-box {
+            background: var(--glass-bg);
+            border-left: 4px solid var(--accent-primary);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+        }
+
+        /* Architecture Grid */
+        .architecture-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .arch-component {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--card-radius);
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .arch-component:hover {
+            border-color: var(--accent-primary);
+            transform: translateY(-5px);
+        }
+
+        .arch-component h3 {
+            color: var(--accent-primary);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .arch-component p {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }
+
+        /* Methodology Steps */
+        .methodology-steps {
+            list-style: none;
+            counter-reset: step-counter;
+        }
+
+        .methodology-steps li {
+            counter-increment: step-counter;
+            position: relative;
+            padding-left: 4rem;
+            margin-bottom: 2rem;
+            font-size: 1.05rem;
+        }
+
+        .methodology-steps li::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 2.5rem;
+            height: 2.5rem;
+            background: linear-gradient(135deg, var(--accent-primary), #0088ff);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        /* Metrics Grid */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .metric-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--card-radius);
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .metric-card:hover {
+            border-color: var(--accent-primary);
+            transform: scale(1.05);
+        }
+
+        .metric-value {
+            display: block;
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--accent-primary);
+            margin-bottom: 0.5rem;
+            font-family: var(--font-heading);
+        }
+
+        .metric-label {
+            display: block;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .metric-description {
+            display: block;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Impact List */
+        .impact-list {
+            list-style: none;
+        }
+
+        .impact-list li {
+            padding-left: 2rem;
+            margin-bottom: 1rem;
+            position: relative;
+            font-size: 1.05rem;
+        }
+
+        .impact-list li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--accent-primary);
+            font-weight: 700;
+            font-size: 1.3rem;
+        }
+
+        /* Code Blocks */
+        .code-section {
+            margin: 2rem 0;
+        }
+
+        .code-section h3 {
+            color: var(--accent-secondary);
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        pre {
+            background: #0a0a1a;
+            border: 1px solid var(--glass-border);
+            border-radius: var(--card-radius);
+            padding: 1.5rem;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+
+        code {
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: #e0e0e0;
+        }
+
+        /* Tech Stack */
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .tech-badge {
+            padding: 0.6rem 1.2rem;
+            background: var(--glass-bg);
+            border: 1px solid var(--accent-primary);
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: var(--accent-primary);
+            transition: all 0.3s ease;
+        }
+
+        .tech-badge:hover {
+            background: rgba(0, 243, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        /* Challenges */
+        .challenges-grid {
+            display: grid;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .challenge-item {
+            background: var(--glass-bg);
+            border-left: 4px solid var(--accent-secondary);
+            padding: 1.5rem;
+            border-radius: 8px;
+        }
+
+        .challenge-item h4 {
+            color: var(--accent-secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .challenge-item .solution {
+            color: var(--text-secondary);
+            font-style: italic;
+            margin-top: 0.5rem;
+        }
+
+        .challenge-item .solution::before {
+            content: "→ Solution: ";
+            color: var(--accent-primary);
+            font-weight: 600;
+        }
+
+        /* Image Gallery */
+        .image-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: var(--card-radius);
+            overflow: hidden;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            transition: all 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            border-color: var(--accent-primary);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 243, 255, 0.2);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            color: var(--text-secondary);
+            border-top: 1px solid var(--glass-border);
+            margin-top: 4rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .project-title {
+                font-size: 2.5rem;
+            }
+
+            .project-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .navbar {
+                padding: 1rem 1.5rem;
+            }
+
+            .project-hero {
+                padding: 8rem 0 3rem;
+            }
+
+            .metrics-grid,
+            .architecture-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="logo"><a href="../../index.html">IK.</a></div>
+        <a href="../../index.html#projects" class="back-link">
+            <i class="fas fa-arrow-left"></i> Back to Projects
+        </a>
+    </nav>
+
+    <!-- Project Hero -->
+    <section class="project-hero">
+        <div class="container">
+            <div class="project-header">
+                <span class="domain-badge">🏥 Medical AI & Healthcare</span>
+                <h1 class="project-title">GenFedRepKG</h1>
+                <p class="project-subtitle">AI-Driven Drug Repurposing for Rare Diseases</p>
+
+                <div class="project-meta">
+                    <span><i class="fas fa-calendar"></i> 6 months</span>
+                    <span><i class="fas fa-user"></i> Solo Research Project</span>
+                    <span><i class="fas fa-check-circle"></i> Published</span>
+                </div>
+
+                <div class="project-links">
+                    <span class="btn btn-secondary" style="opacity:0.6; cursor:not-allowed;">Private / Under Development</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Project Content -->
+    <main class="project-content">
+        <div class="container">
+
+            <!-- Overview -->
+            <section class="content-section">
+                <h2><i class="fas fa-info-circle"></i> Overview</h2>
+                <p>Generative AI-powered federated learning framework using knowledge graphs to identify potential drug candidates for rare metabolic disorders while preserving patient data privacy across multiple medical institutions.</p>
+            </section>
+
+            <!-- Problem Statement -->
+            <section class="content-section">
+                <h2><i class="fas fa-exclamation-triangle"></i> The Problem</h2>
+                <p>Drug repurposing for rare diseases faces critical challenges: limited patient data scattered across institutions, high costs of traditional drug discovery ($2.6B average), privacy regulations preventing data sharing, and slow approval processes. Rare disease patients often wait years for potential treatments while existing drugs that could help remain undiscovered.</p>
+            </section>
+
+            <!-- Solution -->
+            <section class="content-section">
+                <h2><i class="fas fa-lightbulb"></i> The Solution</h2>
+                <p>Developed a novel Federated Learning framework that enables collaborative AI training across multiple medical institutions without sharing raw patient data. The system uses Graph Neural Networks (R-GCN) to build comprehensive knowledge graphs from biomedical ontologies, then applies Generative AI (VAE-based models) to predict drug-disease relationships. Differential privacy mechanisms ensure complete patient confidentiality while achieving high prediction accuracy.</p>
+            </section>
+
+            
+      <section class="content-section">
+        <h2><i class="fas fa-images"></i> Project Gallery</h2>
+        <div class="image-gallery">
+          
+            <div class="gallery-item">
+              <img src="../images/GenFedRepKG_1.png" alt="GenFedRepKG - Image 1" loading="lazy">
+            </div>
+          
+            <div class="gallery-item">
+              <img src="../images/GenFedRepKG_2.png" alt="GenFedRepKG - Image 2" loading="lazy">
+            </div>
+          
+            <div class="gallery-item">
+              <img src="../images/GenFedRepKG_3.png" alt="GenFedRepKG - Image 3" loading="lazy">
+            </div>
+          
+            <div class="gallery-item">
+              <img src="../images/GenFedRepKG_4.png" alt="GenFedRepKG - Image 4" loading="lazy">
+            </div>
+          
+        </div>
+      </section>
+    
+
+            
+      <section class="content-section">
+        <h2><i class="fas fa-project-diagram"></i> Technical Architecture</h2>
+        <p>Multi-institutional federated learning system with privacy-preserving knowledge graph integration</p>
+        <div class="architecture-grid">
+          
+            <div class="arch-component">
+              <h3>Federated Learning Coordinator</h3>
+              <p>Orchestrates distributed training across 3 medical institutions, managing model synchronization and aggregation without centralizing patient data.</p>
+            </div>
+          
+            <div class="arch-component">
+              <h3>Knowledge Graph Builder (R-GCN)</h3>
+              <p>Constructs multi-relational graphs from biomedical databases (DrugBank, KEGG, Gene Ontology) to capture complex drug-disease-gene relationships.</p>
+            </div>
+          
+            <div class="arch-component">
+              <h3>Generative Model (VAE)</h3>
+              <p>Variational Autoencoder learns latent representations of drug-disease pairs to predict novel repurposing candidates.</p>
+            </div>
+          
+            <div class="arch-component">
+              <h3>Privacy-Preserving Aggregator</h3>
+              <p>Implements differential privacy and secure aggregation to protect individual patient records during model training.</p>
+            </div>
+          
+        </div>
+      </section>
+    
+
+            
+      <section class="content-section">
+        <h2><i class="fas fa-tasks"></i> Methodology</h2>
+        <ol class="methodology-steps">
+          <li>Data collection from 3 medical institutions (anonymized patient records, genomic data, treatment outcomes)</li><li>Knowledge graph construction using biomedical ontologies (DrugBank, KEGG, Gene Ontology, DisGeNET)</li><li>Federated training with differential privacy (ε=1.0, δ=10⁻⁵)</li><li>Drug-disease link prediction using Graph Neural Networks</li><li>Validation through molecular docking simulations and literature review</li><li>Clinical expert review of top candidates</li>
+        </ol>
+      </section>
+    
+
+            <!-- Results & Impact -->
+            <section class="content-section">
+                <h2><i class="fas fa-chart-line"></i> Results & Impact</h2>
+
+                
+      <div class="metrics-grid">
+        
+          <div class="metric-card">
+            <span class="metric-value">3</span>
+            <span class="metric-label">Drug Candidates Identified</span>
+            <span class="metric-description">Novel repurposing opportunities for rare metabolic disorders</span>
+          </div>
+        
+          <div class="metric-card">
+            <span class="metric-value">100%</span>
+            <span class="metric-label">Privacy Preservation</span>
+            <span class="metric-description">Zero patient data exposure across institutions</span>
+          </div>
+        
+          <div class="metric-card">
+            <span class="metric-value">87%</span>
+            <span class="metric-label">Prediction Accuracy</span>
+            <span class="metric-description">AUC-ROC on validation set</span>
+          </div>
+        
+          <div class="metric-card">
+            <span class="metric-value">3.2x</span>
+            <span class="metric-label">Training Efficiency</span>
+            <span class="metric-description">Faster than centralized approach</span>
+          </div>
+        
+      </div>
+    
+
+                <h3 style="margin-top: 3rem; color: var(--accent-secondary);">Key Impact</h3>
+                <ul class="impact-list">
+                    <li>Published in top-tier bioinformatics journal (Impact Factor: 8.7)</li><li>Identified 3 FDA-approved drugs with potential for rare metabolic disorders</li><li>Framework adopted by multi-institutional research consortium</li><li>Reduced drug discovery timeline from years to months</li><li>Enabled collaboration while maintaining HIPAA compliance</li>
+                </ul>
+            </section>
+
+            
+      <section class="content-section">
+        <h2><i class="fas fa-puzzle-piece"></i> Challenges & Solutions</h2>
+        <div class="challenges-grid">
+          
+            <div class="challenge-item">
+              <h4>Heterogeneous Data Formats</h4>
+              <p class="solution">Developed standardized ETL pipeline with FHIR compliance for cross-institutional compatibility</p>
+            </div>
+          
+            <div class="challenge-item">
+              <h4>Communication Overhead</h4>
+              <p class="solution">Implemented gradient compression and asynchronous updates to reduce bandwidth by 60%</p>
+            </div>
+          
+            <div class="challenge-item">
+              <h4>Model Convergence</h4>
+              <p class="solution">Adaptive learning rates and FedProx algorithm to handle non-IID data distributions</p>
+            </div>
+          
+        </div>
+      </section>
+    
+
+            
+      <section class="content-section">
+        <h2><i class="fas fa-code"></i> Key Implementation</h2>
+        
+          <div class="code-section">
+            <h3>Federated Training Loop</h3>
+            <pre><code>def federated_train(clients, global_model, rounds=10):
+    &quot;&quot;&quot;
+    Federated learning with differential privacy
+    &quot;&quot;&quot;
+    for round in range(rounds):
+        client_updates = []
+        
+        # Local training at each institution
+        for client in clients:
+            local_model = train_local(
+                client_data=client.get_data(),
+                global_model=global_model,
+                epochs=5,
+                privacy_budget=1.0
+            )
+            # Add noise for differential privacy
+            noisy_update = add_gaussian_noise(
+                local_model.state_dict(),
+                sensitivity=0.1,
+                epsilon=1.0
+            )
+            client_updates.append(noisy_update)
+        
+        # Secure aggregation
+        global_model = federated_averaging(client_updates)
+        
+        # Evaluate on validation set
+        metrics = evaluate_model(global_model, validation_data)
+        print(f&quot;Round {round}: AUC={metrics[&#039;auc&#039;]:.3f}&quot;)
+    
+    return global_model</code></pre>
+          </div>
+        
+          <div class="code-section">
+            <h3>Knowledge Graph Construction</h3>
+            <pre><code>class KnowledgeGraphBuilder:
+    def __init__(self, ontologies):
+        self.graph = nx.MultiDiGraph()
+        self.ontologies = ontologies
+    
+    def build_graph(self):
+        # Add drug nodes
+        drugs = self.load_drugbank()
+        for drug in drugs:
+            self.graph.add_node(
+                drug.id, 
+                type=&#039;drug&#039;,
+                name=drug.name,
+                smiles=drug.smiles
+            )
+        
+        # Add disease nodes
+        diseases = self.load_disgenet()
+        for disease in diseases:
+            self.graph.add_node(
+                disease.id,
+                type=&#039;disease&#039;,
+                name=disease.name
+            )
+        
+        # Add relationships
+        self.add_drug_target_edges()
+        self.add_disease_gene_edges()
+        self.add_drug_disease_edges()
+        
+        return self.graph</code></pre>
+          </div>
+        
+      </section>
+    
+
+            <!-- Technologies Used -->
+            <section class="content-section">
+                <h2><i class="fas fa-tools"></i> Technologies Used</h2>
+                <div class="tech-stack">
+                    <span class="tech-badge">Python</span><span class="tech-badge">PyTorch</span><span class="tech-badge">PyTorch Geometric</span><span class="tech-badge">Graph Neural Networks</span><span class="tech-badge">Federated Learning</span><span class="tech-badge">Differential Privacy</span><span class="tech-badge">NetworkX</span><span class="tech-badge">RDKit</span><span class="tech-badge">BioPython</span><span class="tech-badge">Docker</span><span class="tech-badge">PostgreSQL</span>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Imran Khalid. Built with <i class="fas fa-bolt"></i> Speed & Precision.</p>
+    </footer>
+</body>
+
+</html>
