@@ -160,8 +160,37 @@ projects.forEach((project, index) => {
   // Build tech stack
   const techStackHTML = project.tech.map(tech => `<span class="tech-badge">${tech}</span>`).join('');
 
+  // Build Custom SEO Head
+  const seoTitle = `${project.title} | Imran Khalid - AI & ML Specialist`;
+  const seoDesc = project.overview.replace(/"/g, '&quot;').substring(0, 160) + '...';
+  let seoKeywords = `${project.title}, ${domainInfo.label}, AI, Machine Learning, Imran Khalid, Rahim Yar Khan, Pakistan`;
+  if (project.tech) seoKeywords += `, ${project.tech.join(', ')}`;
+
+  const seoHead = `
+    <title>${seoTitle}</title>
+    <meta name="title" content="${seoTitle}">
+    <meta name="description" content="${seoDesc}">
+    <meta name="keywords" content="${seoKeywords}">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://imrankhalid.me/projects/${project.id}/">
+    <meta property="og:title" content="${seoTitle}">
+    <meta property="og:description" content="${seoDesc}">
+    ${project.images && project.images.length > 0 ? `<meta property="og:image" content="https://imrankhalid.me/${project.images[0]}">` : ''}
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://imrankhalid.me/projects/${project.id}/">
+    <meta property="twitter:title" content="${seoTitle}">
+    <meta property="twitter:description" content="${seoDesc}">
+    ${project.images && project.images.length > 0 ? `<meta property="twitter:image" content="https://imrankhalid.me/${project.images[0]}">` : ''}
+    <link rel="canonical" href="https://imrankhalid.me/projects/${project.id}/">
+  `;
+
   // Replace placeholders in template
   let html = template
+    .replace('{{SEO_HEAD}}', seoHead)
     .replace(/\{\{PROJECT_TITLE\}\}/g, project.title)
     .replace(/\{\{DOMAIN_ICON\}\}/g, domainInfo.icon)
     .replace(/\{\{DOMAIN_LABEL\}\}/g, domainInfo.label)
