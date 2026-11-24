@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://imrankhalid.me/sitemap.xml
