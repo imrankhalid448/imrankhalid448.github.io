@@ -6,6 +6,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "generate": "node generate-covers.js && node generate-projects.js",
+    "prebuild": "npm run generate",
     "build": "vite build",
     "preview": "vite preview",
     "predeploy": "npm run build",

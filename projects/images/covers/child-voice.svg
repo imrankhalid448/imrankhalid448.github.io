@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" role="img" aria-labelledby="title desc">
+  <title id="title">Child Voice Detection — Speech &amp; Audio AI</title>
+  <desc id="desc">Cover art for the Child Voice Detection project by Imran Khalid.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#050510"/>
+      <stop offset=".55" stop-color="#08081a"/>
+      <stop offset="1" stop-color="#0d0b24"/>
+    </linearGradient>
+    <radialGradient id="glow" cx=".5" cy=".5" r=".5">
+      <stop offset="0" stop-color="#a78bfa" stop-opacity=".38"/>
+      <stop offset="1" stop-color="#a78bfa" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="line" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#a78bfa" stop-opacity="0"/>
+      <stop offset=".5" stop-color="#a78bfa"/>
+      <stop offset="1" stop-color="#a78bfa" stop-opacity="0"/>
+    </linearGradient>
+    <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse">
+      <path d="M48 0H0V48" fill="none" stroke="#a78bfa" stroke-opacity=".09" stroke-width="1"/>
+    </pattern>
+    <filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="18"/>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="750" fill="url(#bg)"/>
+  <rect width="1200" height="750" fill="url(#grid)"/>
+  <circle cx="930" cy="320" r="330" fill="url(#glow)"/>
+  <circle cx="930" cy="320" r="330" fill="none" stroke="#a78bfa" stroke-opacity=".12" stroke-width="1"/>
+  <path d="M0 610H1200" stroke="url(#line)" stroke-opacity=".45"/>
+
+  <g opacity=".9">
+    
+        <g fill="#a78bfa" opacity=".7">
+          <rect x="670" y="331" width="7" height="18" rx="3.5" opacity="0.28"/><rect x="688" y="285.567039241606" width="7" height="108.86592151678808" rx="3.5" opacity="0.41000000000000003"/><rect x="706" y="274.5168374090647" width="7" height="130.96632518187064" rx="3.5" opacity="0.54"/><rect x="724" y="306.2119669464379" width="7" height="67.57606610712426" rx="3.5" opacity="0.67"/><rect x="742" y="305.33381428889857" width="7" height="69.33237142220288" rx="3.5" opacity="0.28"/><rect x="760" y="274.3032531754244" width="7" height="131.39349364915125" rx="3.5" opacity="0.41000000000000003"/><rect x="778" y="286.1796597217527" width="7" height="107.64068055649452" rx="3.5" opacity="0.54"/><rect x="796" y="330.0247937719077" width="7" height="19.950412456184566" rx="3.5" opacity="0.67"/><rect x="814" y="284.9672638967491" width="7" height="110.06547220650177" rx="3.5" opacity="0.28"/><rect x="832" y="274.746390970985" width="7" height="130.50721805803" rx="3.5" opacity="0.41000000000000003"/><rect x="850" y="307.0971278559781" width="7" height="65.80574428804377" rx="3.5" opacity="0.54"/><rect x="868" y="304.4629181610314" width="7" height="71.07416367793728" rx="3.5" opacity="0.67"/><rect x="886" y="274.1056986561435" width="7" height="131.78860268771302" rx="3.5" opacity="0.28"/><rect x="904" y="286.80495213269614" width="7" height="106.39009573460773" rx="3.5" opacity="0.41000000000000003"/><rect x="922" y="329.0498632611741" width="7" height="21.900273477651858" rx="3.5" opacity="0.54"/><rect x="940" y="284.380503260006" width="7" height="111.23899347998804" rx="3.5" opacity="0.67"/><rect x="958" y="274.9918489601419" width="7" height="130.01630207971618" rx="3.5" opacity="0.28"/><rect x="976" y="307.9890467584245" width="7" height="64.021906483151" rx="3.5" opacity="0.41000000000000003"/><rect x="994" y="303.59952478888897" width="7" height="72.80095042222207" rx="3.5" opacity="0.54"/><rect x="1012" y="273.9242297052647" width="7" height="132.15154058947064" rx="3.5" opacity="0.67"/><rect x="1030" y="287.4427396872428" width="7" height="105.11452062551443" rx="3.5" opacity="0.28"/><rect x="1048" y="328.0754841072047" width="7" height="23.849031785590512" rx="3.5" opacity="0.41000000000000003"/><rect x="1066" y="283.8069232245879" width="7" height="112.38615355082422" rx="3.5" opacity="0.54"/><rect x="1084" y="275.25314197887724" width="7" height="129.49371604224552" rx="3.5" opacity="0.67"/><rect x="1102" y="308.8874714840135" width="7" height="62.22505703197305" rx="3.5" opacity="0.28"/><rect x="1120" y="302.74387827729043" width="7" height="74.5122434454191" rx="3.5" opacity="0.41000000000000003"/><rect x="1138" y="273.7588976290024" width="7" height="132.4822047419953" rx="3.5" opacity="0.54"/><rect x="1156" y="288.09284206548216" width="7" height="103.81431586903564" rx="3.5" opacity="0.67"/>
+        </g>
+        <g fill="none" stroke="#a78bfa" stroke-width="2" opacity=".35">
+          <circle cx="900" cy="340" r="170" stroke-dasharray="2 10"/>
+        </g>
+  </g>
+
+  <g transform="translate(70 62)">
+    <rect width="132" height="36" rx="18" fill="#a78bfa" fill-opacity=".08" stroke="#a78bfa" stroke-opacity=".55"/>
+    <circle cx="20" cy="18" r="4" fill="#a78bfa"/>
+    <text x="34" y="23" font-family="Inter, Arial, sans-serif" font-size="13" letter-spacing="2.5" fill="#a78bfa">AI / ML</text>
+  </g>
+
+  <text x="70" y="470" font-family="Poppins, Inter, Arial, sans-serif" font-size="54" font-weight="700" letter-spacing="-1" fill="#ffffff">Child Voice Detection</text>
+  <text x="72" y="522" font-family="Inter, Arial, sans-serif" font-size="19" letter-spacing="3.4" fill="#a78bfa" opacity=".92">SPEECH &amp; AUDIO AI</text>
+  <text x="72" y="660" font-family="Inter, Arial, sans-serif" font-size="14" letter-spacing="3" fill="#9a9ab0">IMRAN KHALID · AI &amp; ML SPECIALIST</text>
+
+  <g transform="translate(1005 618)">
+    <circle r="38" fill="#050510" fill-opacity=".65" stroke="#a78bfa" stroke-opacity=".45"/>
+    <path d="M0-18v36M-18 0h36" stroke="#a78bfa" stroke-width="2" stroke-opacity=".8"/>
+    <circle r="7" fill="#a78bfa"/>
+  </g>
+</svg>

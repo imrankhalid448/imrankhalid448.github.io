@@ -140,14 +140,21 @@ projects.forEach((project, index) => {
     `;
   }
 
-  // Build image gallery section
-  let imageGalleryHTML = '';
-  if (project.images && project.images.length > 0) {
-    imageGalleryHTML = `
+  // Build image gallery section. The generated cover is always first, and
+  // only repository images that actually exist are included.
+  const coverImage = `/projects/images/covers/${project.id}.svg`;
+  const galleryImages = [
+    coverImage,
+    ...(project.images || [])
+      .map(normalizeImagePath)
+      .filter((img) => img !== coverImage && imageFileExists(img))
+  ];
+
+  const imageGalleryHTML = `
       <section class="content-section">
         <h2><i class="fas fa-images"></i> Project Gallery</h2>
         <div class="image-gallery">
-          ${project.images.map((img, idx) => `
+          ${galleryImages.map((img, idx) => `
             <div class="gallery-item">
               <img src="${img}" alt="${project.title} - Image ${idx + 1}" loading="lazy">
             </div>
@@ -155,7 +162,6 @@ projects.forEach((project, index) => {
         </div>
       </section>
     `;
-  }
 
   // Build tech stack
   const techStackHTML = project.tech.map(tech => `<span class="tech-badge">${tech}</span>`).join('');
@@ -177,14 +183,14 @@ projects.forEach((project, index) => {
     <meta property="og:url" content="https://imrankhalid.me/projects/${project.id}/">
     <meta property="og:title" content="${seoTitle}">
     <meta property="og:description" content="${seoDesc}">
-    ${project.images && project.images.length > 0 ? `<meta property="og:image" content="https://imrankhalid.me/${project.images[0]}">` : ''}
+    <meta property="og:image" content="https://imrankhalid.me${coverImage}">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://imrankhalid.me/projects/${project.id}/">
     <meta property="twitter:title" content="${seoTitle}">
     <meta property="twitter:description" content="${seoDesc}">
-    ${project.images && project.images.length > 0 ? `<meta property="twitter:image" content="https://imrankhalid.me/${project.images[0]}">` : ''}
+    <meta property="twitter:image" content="https://imrankhalid.me${coverImage}">
     <link rel="canonical" href="https://imrankhalid.me/projects/${project.id}/">
   `;
 
@@ -199,6 +205,7 @@ projects.forEach((project, index) => {
     .replace(/\{\{TEAM\}\}/g, project.team || 'Solo Project')
     .replace(/\{\{STATUS\}\}/g, project.status || 'Completed')
     .replace(/\{\{PROJECT_LINKS\}\}/g, linksHTML)
+    .replace(/\{\{PROJECT_COVER\}\}/g, coverImage)
     .replace(/\{\{OVERVIEW\}\}/g, project.overview)
     .replace(/\{\{PROBLEM\}\}/g, project.problem)
     .replace(/\{\{SOLUTION\}\}/g, project.solution)
@@ -225,6 +232,21 @@ projects.forEach((project, index) => {
 });
 
 console.log(`\n✅ Successfully generated ${projects.length} project pages!`);
+
+// Normalize project image paths to root-relative URLs so they work from
+// both the home page and nested project detail pages.
+function normalizeImagePath(img) {
+  if (!img) return '';
+  if (img.startsWith('/')) return img;
+  if (img.startsWith('../')) return `/projects/${img.slice(3)}`;
+  if (img.startsWith('projects/')) return `/${img}`;
+  return `/projects/images/${img}`;
+}
+
+function imageFileExists(url) {
+  if (!url.startsWith('/')) return false;
+  return fs.existsSync(path.join(__dirname, url.slice(1)));
+}
 
 // Helper function to escape HTML
 function escapeHtml(text) {

@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" role="img" aria-labelledby="title desc">
+  <title id="title">AI Daily Planner — Predictive Analytics</title>
+  <desc id="desc">Cover art for the AI Daily Planner project by Imran Khalid.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#050510"/>
+      <stop offset=".55" stop-color="#08081a"/>
+      <stop offset="1" stop-color="#0d0b24"/>
+    </linearGradient>
+    <radialGradient id="glow" cx=".5" cy=".5" r=".5">
+      <stop offset="0" stop-color="#ffd700" stop-opacity=".38"/>
+      <stop offset="1" stop-color="#ffd700" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="line" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#ffd700" stop-opacity="0"/>
+      <stop offset=".5" stop-color="#ffd700"/>
+      <stop offset="1" stop-color="#ffd700" stop-opacity="0"/>
+    </linearGradient>
+    <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse">
+      <path d="M48 0H0V48" fill="none" stroke="#ffd700" stroke-opacity=".09" stroke-width="1"/>
+    </pattern>
+    <filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="18"/>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="750" fill="url(#bg)"/>
+  <rect width="1200" height="750" fill="url(#grid)"/>
+  <circle cx="930" cy="320" r="330" fill="url(#glow)"/>
+  <circle cx="930" cy="320" r="330" fill="none" stroke="#ffd700" stroke-opacity=".12" stroke-width="1"/>
+  <path d="M0 610H1200" stroke="url(#line)" stroke-opacity=".45"/>
+
+  <g opacity=".9">
+    
+        <g fill="none" stroke="#ffd700" stroke-width="2" opacity=".45">
+          <path d="M690 450h360M690 450V190" opacity=".4"/>
+          <path d="M715 410l60-55 55 22 55-80 60 32 60-92 55 38" stroke-width="3.5"/>
+          <path d="M715 410l60-55 55 22 55-80 60 32 60-92 55 38V450H715Z" fill="#ffd700" opacity=".08" stroke="none"/>
+        </g>
+        <g fill="#ffd700">
+          <circle cx="775" cy="355" r="5"/><circle cx="830" cy="377" r="5"/>
+          <circle cx="885" cy="297" r="5"/><circle cx="945" cy="329" r="5"/>
+          <circle cx="1005" cy="237" r="5"/><circle cx="1060" cy="275" r="5"/>
+        </g>
+  </g>
+
+  <g transform="translate(70 62)">
+    <rect width="132" height="36" rx="18" fill="#ffd700" fill-opacity=".08" stroke="#ffd700" stroke-opacity=".55"/>
+    <circle cx="20" cy="18" r="4" fill="#ffd700"/>
+    <text x="34" y="23" font-family="Inter, Arial, sans-serif" font-size="13" letter-spacing="2.5" fill="#ffd700">AI / ML</text>
+  </g>
+
+  <text x="70" y="470" font-family="Poppins, Inter, Arial, sans-serif" font-size="66" font-weight="700" letter-spacing="-1" fill="#ffffff">AI Daily Planner</text>
+  <text x="72" y="522" font-family="Inter, Arial, sans-serif" font-size="19" letter-spacing="3.4" fill="#ffd700" opacity=".92">PREDICTIVE ANALYTICS</text>
+  <text x="72" y="660" font-family="Inter, Arial, sans-serif" font-size="14" letter-spacing="3" fill="#9a9ab0">IMRAN KHALID · AI &amp; ML SPECIALIST</text>
+
+  <g transform="translate(1005 618)">
+    <circle r="38" fill="#050510" fill-opacity=".65" stroke="#ffd700" stroke-opacity=".45"/>
+    <path d="M0-18v36M-18 0h36" stroke="#ffd700" stroke-width="2" stroke-opacity=".8"/>
+    <circle r="7" fill="#ffd700"/>
+  </g>
+</svg>

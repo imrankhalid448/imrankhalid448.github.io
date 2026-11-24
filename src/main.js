@@ -237,12 +237,15 @@ function renderProjects(filterDomain = 'all') {
   // Render project cards
   projectGrid.innerHTML = filteredProjects.map(project => {
     const domainInfo = domains[project.domain];
-    const placeholderImage = `https://via.placeholder.com/400x250/0a0a1a/00f3ff?text=${encodeURIComponent(project.title)}`;
+    // Every project has a generated cover, so cards never depend on a
+    // screenshot file that may be missing from the repository.
+    const coverImage = `/projects/images/covers/${project.id}.svg`;
 
     return `
       <a href="./projects/${project.id}/index.html" class="project-card-enhanced fade-on-scroll" data-domain="${project.domain}">
-        <div class="project-thumbnail">
-          <img src="${project.thumbnail || placeholderImage}" alt="${project.title}" loading="lazy">
+        <div class="project-thumbnail" data-title="${project.title}">
+          <img src="${coverImage}" alt="${project.title} — ${domainInfo.label} project cover" loading="lazy"
+            decoding="async" onerror="this.style.display='none'">
           <span class="domain-badge">${domainInfo.icon} ${domainInfo.label}</span>
         </div>
         <div class="project-info">

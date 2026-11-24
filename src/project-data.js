@@ -335,13 +335,8 @@ export const projects = [
       paper: "#"
     },
 
-    thumbnail: "../images/Covid_19_1.png",
-    images: [
-      "../images/Covid_19_1.png",
-      "../images/Covid_19_2.png",
-      "../images/Covid_19_3.png",
-      "../images/Covid_19_4.png"
-    ]
+    thumbnail: "/projects/images/covers/brats.svg",
+    images: []
   },
 
   {
