@@ -370,7 +370,7 @@ if (contactForm) {
     const originalLabel = submitBtn ? submitBtn.textContent : '';
     if (submitBtn) {
       submitBtn.disabled = true;
-      submitBtn.textContent = 'Opening your email app...';
+      submitBtn.textContent = 'Opening email...';
     }
 
     // Anchor click is used instead of assigning location.href so the page
@@ -382,12 +382,15 @@ if (contactForm) {
     link.click();
     link.remove();
 
+    // Replace any stale error immediately, while the button shows the
+    // sending state.
+    showStatus('Your email app should now open with the message ready to send. If nothing happened, use the email address below.', 'success');
+
     setTimeout(() => {
       if (submitBtn) {
         submitBtn.disabled = false;
         submitBtn.textContent = originalLabel;
       }
-      showStatus(`Your email app should now open with the message ready to send. If nothing happened, email me directly at ${CONTACT_EMAIL}.`, 'success');
     }, 800);
   });
 }
