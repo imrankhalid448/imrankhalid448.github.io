@@ -534,45 +534,102 @@
 
     <!-- Contact Section -->
     <section id="contact" class="section contact-section">
+      <div class="contact-aurora"></div>
       <div class="container slide-up-reveal">
-        <h2 class="section-title">Get In Touch</h2>
+        <div class="contact-header">
+          <span class="contact-eyebrow"><i class="fas fa-paper-plane"></i> Contact</span>
+          <h2 class="contact-title">Let's build something <span>intelligent</span></h2>
+          <p class="contact-subtitle">Have a model that needs training, a pipeline to automate, or an AI product to
+            ship? Share the details below and I'll get back to you within 24 hours.</p>
+        </div>
+
         <div class="contact-content">
           <div class="contact-info">
-            <div class="info-item">
-              <i class="fas fa-envelope"></i>
+            <div class="contact-availability">
+              <span class="contact-status-dot"></span>
               <div>
-                <label>Email</label>
-                <a href="mailto:mimrankhalid448@gmail.com">mimrankhalid448@gmail.com</a>
+                <strong>Open to new projects</strong>
+                <span>Freelance contracts &amp; full-time AI/ML roles</span>
               </div>
             </div>
-            <div class="info-item">
-              <i class="fas fa-phone"></i>
-              <div>
-                <label>Phone</label>
-                <a href="tel:+923006782867">+92-300-6782867</a>
+
+            <div class="contact-cards">
+              <a class="info-item" href="mailto:mimrankhalid448@gmail.com">
+                <i class="fas fa-envelope"></i>
+                <div class="info-text">
+                  <label>Email</label>
+                  <span class="info-value">mimrankhalid448@gmail.com</span>
+                </div>
+                <i class="fas fa-arrow-right info-arrow"></i>
+              </a>
+
+              <a class="info-item" href="tel:+923006782867">
+                <i class="fas fa-phone"></i>
+                <div class="info-text">
+                  <label>Phone</label>
+                  <span class="info-value">+92-300-6782867</span>
+                </div>
+                <i class="fas fa-arrow-right info-arrow"></i>
+              </a>
+
+              <div class="info-item info-item-static">
+                <i class="fas fa-map-marker-alt"></i>
+                <div class="info-text">
+                  <label>Location</label>
+                  <span class="info-value">Rahim Yar Khan, Punjab, Pakistan</span>
+                </div>
               </div>
             </div>
-            <div class="info-item">
-              <i class="fas fa-map-marker-alt"></i>
-              <div>
-                <label>Location</label>
-                <span>Rahim Yar Khan, Punjab, Pakistan</span>
+
+            <div class="contact-socials-block">
+              <span class="contact-socials-label">Find me online</span>
+              <div class="contact-socials">
+                <a href="https://www.linkedin.com/in/mimran-khalid/" target="_blank" rel="noopener"
+                  title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://github.com/imrankhalid448" target="_blank" rel="noopener" title="GitHub"><i
+                    class="fab fa-github"></i></a>
+                <a href="https://www.fiverr.com/s/Q7BkyQ6" target="_blank" rel="noopener" title="Fiverr"><span
+                    class="social-letter">fi</span></a>
+                <a href="https://freelancerprofilenuxt.mesh.prod.platform.usw2.upwork/freelancers/imrankhalid?mp_source=share"
+                  target="_blank" rel="noopener" title="Upwork"><span class="social-letter">Up</span></a>
               </div>
             </div>
+
+            <ul class="contact-facts">
+              <li><i class="fas fa-circle-check"></i> Replies within 24 hours</li>
+              <li><i class="fas fa-circle-check"></i> Remote worldwide · PKT (UTC+5)</li>
+              <li><i class="fas fa-circle-check"></i> NDA-friendly collaboration</li>
+            </ul>
           </div>
 
-          <form id="contact-form" class="contact-form">
-            <div class="form-group">
-              <input type="text" name="name" id="name" placeholder="Your Name" required>
+          <div class="contact-form-card">
+            <div class="contact-form-head">
+              <h3>Send a message</h3>
+              <p>Tell me about your project, timeline and goals.</p>
             </div>
-            <div class="form-group">
-              <input type="email" name="email" id="email" placeholder="Your Email" required>
-            </div>
-            <div class="form-group">
-              <textarea name="message" id="message" rows="5" placeholder="Your Message" required></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary">Send Message</button>
-          </form>
+            <form id="contact-form" class="contact-form">
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="name">Your Name</label>
+                  <input type="text" name="name" id="name" placeholder="Imran Khan" autocomplete="name" required>
+                </div>
+                <div class="form-group">
+                  <label for="email">Email Address</label>
+                  <input type="email" name="email" id="email" placeholder="you@company.com"
+                    autocomplete="email" required>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="message">Your Message</label>
+                <textarea name="message" id="message" rows="5"
+                  placeholder="I'm looking for a computer vision model that..." required></textarea>
+              </div>
+              <button type="submit" class="contact-submit">Send Message</button>
+              <p id="contact-status" class="status-message" role="status" aria-live="polite"></p>
+              <p class="contact-form-note"><i class="fas fa-lock"></i> Your details stay private. No spam, ever.</p>
+              <p class="contact-form-alt">Prefer email? <a href="mailto:mimrankhalid448@gmail.com">mimrankhalid448@gmail.com</a></p>
+            </form>
+          </div>
         </div>
       </div>
     </section>
@@ -615,15 +672,6 @@
   <!-- Custom Cursor -->
   <div class="cursor-dot" data-cursor-dot></div>
   <div class="cursor-outline" data-cursor-outline></div>
-
-  <!-- EmailJS SDK -->
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js">
-  </script>
-  <script type="text/javascript">
-    (function () {
-      emailjs.init("YOUR_PUBLIC_KEY"); // User needs to replace this
-    })();
-  </script>
 
   <script type="module" src="./src/main.js"></script>
 </body>

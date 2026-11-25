@@ -325,26 +325,60 @@ window.addEventListener('click', (e) => {
   }
 });
 
-// --- EmailJS Contact Form ---
+// --- Contact Form (composes a prefilled email, no backend keys needed) ---
 const contactForm = document.getElementById('contact-form');
 
 if (contactForm) {
+  const CONTACT_EMAIL = 'mimrankhalid448@gmail.com';
+  const statusEl = document.getElementById('contact-status');
+  const submitBtn = contactForm.querySelector('button[type="submit"]');
+
+  const showStatus = (message, type) => {
+    if (!statusEl) return;
+    statusEl.textContent = message;
+    statusEl.classList.remove('status-success', 'status-error');
+    statusEl.classList.add(`status-${type}`);
+  };
+
   contactForm.addEventListener('submit', function (event) {
     event.preventDefault();
 
-    const btn = contactForm.querySelector('button');
-    const originalText = btn.innerText;
-    btn.innerText = 'Sending...';
+    const formData = new FormData(contactForm);
+    const name = String(formData.get('name') || '').trim();
+    const email = String(formData.get('email') || '').trim();
+    const message = String(formData.get('message') || '').trim();
 
-    // Simulating 2 second delay for UX
+    if (!name || !email || !message) {
+      showStatus('Please fill in your name, email and message.', 'error');
+      return;
+    }
+
+    const subject = `Project inquiry from ${name}`;
+    const body = `Hi Imran,\n\n${message}\n\n— ${name}\nReply to: ${email}`;
+    const mailto = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+    const originalLabel = submitBtn ? submitBtn.textContent : '';
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Opening your email app...';
+    }
+
+    // Anchor click is used instead of assigning location.href so the page
+    // stays put even when no mail handler is registered.
+    const link = document.createElement('a');
+    link.href = mailto;
+    link.style.display = 'none';
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+
     setTimeout(() => {
-      // In production: emailjs.sendForm('contact_service', 'contact_form', this)
-
-      // For demo:
-      alert('Message Sent! (Note: Connect your EmailJS Service ID to make this live)');
-      contactForm.reset();
-      btn.innerText = originalText;
-    }, 1500);
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalLabel;
+      }
+      showStatus(`Your email app should now open with the message ready to send. If nothing happened, email me directly at ${CONTACT_EMAIL}.`, 'success');
+    }, 800);
   });
 }
 
