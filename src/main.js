@@ -350,6 +350,16 @@ if (contactForm) {
 
     if (!name || !email || !message) {
       showStatus('Please fill in your name, email and message.', 'error');
+      const firstEmpty = [['name', name], ['email', email], ['message', message]]
+        .find(([, value]) => !value);
+      const field = firstEmpty && contactForm.querySelector(`[name="${firstEmpty[0]}"]`);
+      if (field) field.focus();
+      return;
+    }
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      showStatus('Please enter a valid email address so I can reply.', 'error');
+      contactForm.querySelector('[name="email"]').focus();
       return;
     }
 
